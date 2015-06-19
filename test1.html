@@ -1,0 +1,33 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title></title>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script>
+    $(function() {
+        $( "#dialog-modal" ).dialog({
+            height: 500,
+            width:300,
+            modal: true
+        });
+    });
+     (function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ko_KR/all.js#xfbml=1&appId=111856648965371";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
+
+</head>
+<body>
+    <div id="dialog-modal" title="Farkle.." style="width: 300px;height:500px" >
+        <div class="fb-like-box" data-href="https://www.facebook.com/devpsmon" data-width="292" data-show-faces="true" data-stream="false" data-show-border="true" data-header="true"></div>
+    </div>
+
+</body>
+</html>

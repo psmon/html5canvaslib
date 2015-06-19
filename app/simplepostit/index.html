@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf8">
+    <title>Paint</title>
+    <link rel="stylesheet" type="text/css" href="../../script/style.css"/>
+    <script type="text/javascript" src="http://connect.facebook.net/en_US/all.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="../../lib/cocos2d-beta2.js"></script>
+    <script src="../../lib/pscoco.js"></script>
+    <script type="text/javascript">
+        var cocoApp;
+        var canvas;
+        var fbid = '';
+        var curImgName='temp';
+
+        $(document).ready(function(){
+
+            cocoApp= new Application('paintcanvas','yellow');
+            cocoApp.run();
+            canvas = cc.Director.sharedDirector.canvas;
+            initBoard();
+            initFB();
+
+        })
+
+        var initFB = function(){
+            //1379231538972892
+            FB.init(
+                    {
+                        appId : 1379231538972892
+            });
+
+            FB.login( function( response ) {
+                if ( response.authResponse ) {
+                    fbid = response.authResponse.userID;
+                } else {
+                }
+            } );
+
+        }
+
+        var initBoard = function(){
+            cocoApp._layer.mouseDragged  = function(evt){
+                var ball = cocoApp.addImage('../../assets/ball_green.png', evt.x , evt.y-20 , false);
+                ball.position.y-=45;
+                ball.scale=0.5;
+            }
+        }
+
+        var saveit = function(){
+            curImgName = fbid +  Math.round( new Date().getTime() / 1000 );
+            var canvasData = canvas.toDataURL("image/png");
+            var ajax = new XMLHttpRequest();
+            ajax.open("POST",'saveimage.php?img=' + curImgName  ,false);
+            ajax.setRequestHeader('Content-Type', 'application/upload');
+            ajax.onload = function(){
+                postit();
+            }
+            ajax.send(canvasData );
+        }
+
+        var postit = function(){
+            var url = 'http://psmon.x-y.net/pscoco/app/simplepostit/userdata/' + curImgName + '.png';
+            var params = {
+                method:         "feed",
+                name:           'simplepostit',
+                caption:        'simplepostit',
+                description:    '심플한 포스트 잇',
+                link:           'http://psmon.x-y.net/pscoco/app/simplepostit/',
+                picture:        url
+            };
+            FB.ui( params, function( response ){
+            });
+        }
+
+        var clearScreen = function(){
+            cocoApp.removeAll();
+            initBoard();
+        }
+    </script>
+</head>
+<body>
+<P style="font-size:23px;">Simple PostIT ver 0.1</P>
+<div id="paintcanvas" style="width: 400px; height: 300px;float: left;border-style:solid;border-width:1px"></div>
+
+<div style="clear:both" >
+    <button type="button" onclick="saveit()">Share Post</button>
+    <button type="button" onclick="clearScreen()">지우기</button>
+<pre>
+    Post It:  ver 0.1
+    마우스를 이용하여 메모를 한후..Post를 합니다.
+
+    Easy Canvas 라이브러리를 제작하면서, 이것을 활용한 간단한 앱입니다.
+
+    아직은 데스크탑 브라우져에서만 작동이 됩니다. (터치 적용예정)
+    PSCOCOS ( http://psmon.x-y.net/pscoco/sample.html )
+
+</pre>
+
+</div>
+
+</body>
+</html>

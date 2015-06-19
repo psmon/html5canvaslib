@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf8">
+    <meta name="viewport" content="user-scalable=0" />
+    <meta property="fb:app_id" content="132764313565868">
+    <title>PSCocos Canvas Lib</title>
+    <link rel="stylesheet" type="text/css" href="script/style.css"/>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
+    <script src="lib/cocos2d-beta2.js"></script>
+    <script src="lib/pscoco.js"></script>
+    <script src="script/demo1.js"></script>
+    <script type="text/javascript">
+        var cocoApp=null;
+         $(document).ready(function(){
+            //캔버스 어플리케이션 생성및 실행, 인자값은 캔버스가 생성되는 div의 id값
+            cocoApp= new Application('psmon-demo','gray');
+            cocoApp.run();
+
+             $( "#dialog-modal" ).dialog({
+                 height: 500,
+                 width:300,
+                 position: [830,70],
+                 modal: false
+             });
+
+             $( "#accordion" ).accordion({
+                 heightStyle: "content"
+             });
+
+             runDemo(cocoApp,'rainy');
+        })
+
+        function runCode(){
+            cc.Director.sharedDirector.transparent=false;
+            var mycode = $("#testcode").val();
+            eval(mycode)
+        }
+    </script>
+</head>
+<body>
+
+<p class="title">
+    <strong>PSCOCOS LIB <a href="http://psmon.x-y.net" >-PSMON WIKI</a></strong>
+</p>
+
+<div class="headContent">
+
+<div id="psmon-demo" style="width: 800px; height: 600px;float: left;"></div>
+
+<div style="clear: both;">
+
+<div class="topcontent2">
+    <pre class="file">Quick Demo ( http://psmon.x-y.net/pscoco/script/demo1.js 에 포함되어있습니다.)</pre>
+    <ul>
+        <li><button type="button" onclick="runDemo(cocoApp,'createLabel')">CreateLabel</button></li>
+        <li><button type="button" onclick="runDemo(cocoApp,'clickEvent')">Event(Click,Touch)</button></li>
+        <li><button type="button" onclick="runDemo(cocoApp,'EaseBounceOut')">Card Demo(EaseBounceOut)</button></li>
+        <li><button type="button" onclick="runDemo(cocoApp,'seqTo')">Path Ani</button></li>
+        <li><button type="button" onclick="runDemo(cocoApp,'SpriteAnimation')">SpriteAni(앵그리 개구리)</button></li>
+        <li><button type="button" onclick="runDemo(cocoApp,'Dino')">SpriteAni(에너자이저 공룡)</button></li>
+        <li><button type="button" onclick="runDemo(cocoApp,'DinoPlay')">Dino(NewGame)</button></li>
+        <li><button type="button" onclick="runDemo(cocoApp,'paticle')">파티클</button></li>
+        <li><button type="button" onclick="runDemo(cocoApp,'greenBall')">떨어지는 공</button></li>
+        <li><button type="button" onclick="runDemo(cocoApp,'rainy')">비내리는 효과</button></li>
+        <li><button type="button" onclick="runDemo(cocoApp,'fallball')">낙엽</button></li>
+        <li><button type="button" onclick="runDemo(cocoApp,'drawBall')">drawBall</button></li>
+    </ul>
+</div>
+
+<div id="dialog-modal" title="코드연습장" style="width: 300px;height:500px" >
+    <pre class="file">코드 연습장</pre>
+    <textarea class="coderun" id="testcode" >
+        cc.Director.sharedDirector.backgroundColor="gray";
+        var label = cocoApp.addLabel({string:"PSCOCOS LIB(Easy For COCOS JavaScript,psmon.x-y.net)",fontName:"Arial",fontSize:16,fontColor:"white" });
+        label.moveTo({x:200,y:422,duration:10,angle:5 });
+        label.position.x=300;
+        label.position.y=150;
+    </textarea>
+    <button type="button" onclick="runCode()" >Run Code</button>
+    <button type="button" onclick="cocoApp.removeAll()">RemoveAll</button>
+</div>
+
+<div style="clear: both;">
+<br>
+
+
+<div id="accordion">
+
+<h3>PSCOCOS 소개</h3>
+<div>
+<pre class="file">
+cocos2d javascript(http://cocos2d-javascript.org/) 라는 잘만들어진..,라이브러리를 조금 개선하여!!  Html5 Canvas 애니메이션을
+조금더 손쉽게 컨트롤이 가능한 모듈입니다. 이 모듈은
+
+1.라이브러리가 라이트 해야한다(min버젼일경우 200k미만)
+2.이미 만들어진 사이트에, 추가하기위해 설정이 쉬워야 한다.
+3.Jquery를 사용하여 CSS 애니메이션을 제어하는것처럼 쉽고 강력해야 한다.
+
+ 3가지 목표로 모듈 제작중에 있기때문에, Html5 Canvas 개념을 모르더라도!! 애니메이션에 대한 약간의 추상적개념만
+있으면 Canva를 통한 간단한 애니메이션 작성및 응용이 가능할것으로 기대해봅니다.
+
+cocos팀에서 Core Base 라이브러리를 잘 만들어줘서!! 비교적 쉽게 래핑작업이 이루어 지고 있으며...
+Html5의 장점은!! 플러그인 설치없이 데스크탑및,모바일(안드로이드,IOS)에서도 잘돌아간다는 점이죠~~~
+
+코드 연습장을 통해!! 애니메이션 데모 실행이 가능하며!!
+
+아래 두줄의 코드를, 코드연습장에 채운후.. RunCode 실행을 통해 결과를 볼수가 있습니다.
+이미지 추가및.., 여러가지 복합 애니가 단 두줄의 코드로 작동이 가능합니다.
+</pre>
+<pre class="code">
+var img2 = cocoApp.addImage('assets/frogy1.png', 120,100, false);
+img2.moveTo({x:495,y:122,duration:3,angle:5 });
+</pre>
+</div>
+
+<h3>연속된 애니메이션(Delay Ani)</h3>
+<div>
+<pre class="file">
+delay값을 조금씩 증가하여!! 애니메이션 타이밍을 다르게 할수 있습니다.
+</pre>
+<pre class="code">
+for(var i=0;i<52;i++){
+    var imgRandom = cocoApp.addImage('assets/frogy1.png', 50,100);
+    imgRandom.moveTo({x:548,y:200-i*0.2,duration:0.5,delay:i*0.1,angle:90,opacity:50,scale:0.5});
+}
+</pre>
+</div>
+
+<h3>응용편 2 : 이벤트 처리</h3>
+<div>
+<pre class="file">
+추가된 이미지에대한 클릭처리가 가능하며!! 게임버튼을 만들시 활용을 하면 되겠습니다.
+  HotFix: 모바일에서 터치시, 작동안되던게!! 작동이 됩니다.
+</pre>
+<pre class="code">
+//여기서 마지막 인자값 true,false 는 Layer를 사용할지 여부입니다. 사용하면 이벤트처리가 가능하지만 느려집니다.
+var img3 = cocoApp.addImage('assets/frogy1.png', 120,200, true);
+var img4 = cocoApp.addImage('assets/frogy1.png', 200,200, true)
+img3.onMouseUp = function(event){
+    img3.position.y=img3.position.y+5;
+}
+img4.onMouseUp = function(event){
+    img4.position.y=img4.position.y+5;
+}
+</pre>
+</div>
+
+<h3>응용편3: 심플하게 떨어지는 낙엽...</h3>
+<div>
+<pre class="file">
+애니메이션 응용편으로 최종 값을 다양하게 설정함으로서 복합 애니 처리할수가 있습니다.
+</pre>
+<pre class="code">
+var back = cocoApp.addImage('assets/background/streetgirl.jpg', 300,230, false);
+for(var i=0; i<200 ; i++){
+var x = Math.floor(Math.random() * 600) + 1;
+var tx = Math.floor(Math.random() * 600) + 1;
+var ty = 480- Math.floor(Math.random() * 10);
+var tAngle = Math.floor(Math.random() * 90) + 1;
+var startScale=Math.floor(Math.random() + 0.3 );
+var ball = cocoApp.addImage('assets/ball1.png', x,-100, false);
+ball.scale=startScale;
+ball.moveTo({x:tx,y:ty,duration:3,delay:i*0.1,angle:tAngle,opacity:50,scale:0.5});
+}
+</pre>
+</div>
+
+<h3>응용편4: 가속 적용</h3>
+<div>
+<pre class="file">
+ease에 가속 Type이랑, 빈도수를 설정하면 됩니다.
+적용된 가속종류: EaseIn,EaseInOut,EaseBounceOut
+</pre>
+<pre class="code">
+var easeOpt = { type:"EaseIn", rate:3 };  //or Type EaseInOut
+var img2 = cocoApp.addImage('assets/frogy1.png', 120,100, false);
+img2.moveTo({x:495,y:122,duration:3,angle:5,    ease:easeOpt });
+</pre>
+</div>
+
+<h3>응용편5: Path 애니</h3>
+<div>
+<pre class="file">
+애니가 발생하는 사용자정의 Path가 있을시.., 해당 Path정보를 배열형태로 넣으주면 차례대로 재생이 됩니다.
+moveTo에 사용된 모든 이펙트 적용이 가능합니다.
+</pre>
+<pre class="code">
+var img2 = cocoApp.addImage('assets/ball1.png', 120,100, false);
+img2.seqTo([
+    {x:100,y:122,duration:0.3,angle:5 },
+    {x:250,y:50,duration:0.3,angle:45 },
+    {x:300,y:300,duration:0.3,angle:90 ,opacity:50,scale:0.5}
+]);
+</pre>
+</div>
+
+<h3>응용편:6 스프라이트 애니</h3>
+<div>
+<pre class="file">
+때로는, 스크립트로 처리하기힘들어!! 연속된 이미지를 재생할필요가 있습니다.
+이때 스프라이트 애니메이션을 사용하여!! 이미지를 넘겨 애니메이션 효과를 주면 되겠습니다.
+frogy1.png frogy2.png frogy3.png frogy4.png 처럼 연속된 이미지가 존재 해야하며!!!
+설정시 넘버링을 제외한 파일명, 이미지의 사이즈,프레임 카운트,다음장을 넘기는데 걸리는 대기시간을 설정해주면 되겠으며
+해당 예제는 10마리의 개구리가 화가나서 미쳐 날뛰고 있는 예제입니다.
+</pre>
+<pre class="code">
+for(var i=0 ; i< 10 ; i++){
+    _demoRefCount++;
+    var frogAni = new SpriteAnimation({fileName:"assets/ani/flog/frogy",width:700,height:1000,frameCount:15,scale:0.3,repeat:false ,oneDelay:0.03 * (i+1)  });
+    frogAni.position.x=70 * i;
+    frogAni.position.y=150;
+    cocoApp.addChild(frogAni,"frog"+ _demoRefCount );
+    frogAni.play();
+}
+</pre>
+</div>
+
+<h3>응용편7: Label 추가..</h3>
+<div>
+<pre class="file">
+Canvas에서 사영될 Label을 추가할수 있으며.., 이미지 객체와 동일하게 moveTo 를 사용하여
+애니메이션 효과도 줄수가 있습니다.
+</pre>
+<pre class="code">
+var colorList = ["black","maroon","green","olive","navy","purple","coral","#A9A9A9","#E9967A","#2F4F4F"]
+for(var i=0;i<10;i++){
+    var label = cocoApp.addLabel({string:"Html5 Canvas Label...",fontName:"Arial",fontSize:26,fontColor:colorList[i] });
+    label.position.x=150 + (i*30);
+    label.position.y=100 + (i*20);
+}
+</pre>
+</div>
+
+<h3>응용편 8: 커스텀한 좌표 애니메이션(수학 에뮬레이션 적용가능)</h3>
+<div>
+<pre class="file">
+해당 오브젝트에 타이머를 적용하는 기능으로, 중지하기전까지 무한으로 작동되기때문에...
+정지는 ballImg.unscheduleAllSelectors()  를 호출하여 중지가 가능합니다.
+</pre>
+<pre class="code">
+var canvasWidth=600;
+var canvasHeight=480;
+for(var i=0;i<100;i++){
+    var ballImg = cocoApp.addImage('assets/greencircle.png',0,-10,false);
+    ballImg.position.x = Math.round(Math.random() * canvasWidth );
+    ballImg.position.y = Math.round(Math.random() * canvasHeight );
+    ballImg.drift = Math.random();
+    ballImg.speed = Math.round(Math.random() * 5) + 1;
+    ballImg.addSchedule({method:function(){
+        this.speed = Math.round(Math.random() * 3) + 1;
+        if(this.position.y <= canvasHeight){
+            this.position.y =  this.position.y+this.speed;
+            if(this.position.y > canvasHeight){
+                this.position.y = -5;
+            }
+            this.position.x+=this.drift;
+            if(this.position.x > canvasWidth){
+                this.position.x=0
+            }
+        }
+    },target:ballImg,interval:0,paused:false});
+}
+</pre>
+</div>
+
+<h3>응용편9: 간단한 클릭 게임 만들어보기</h3>
+<div>
+<pre class="file">
+공룡이 바람에 날려 오른쪽으로 밀리며!! 살려면 클릭을 해서 액자밖으로 못나가게 하는
+미니게임.. 별도의 타이머없이 액자객체에 이벤트와 타이머를 셋팅하여!! 게임을 수행하였습니다.
+</pre>
+<pre class="code">
+var director = cc.Director.sharedDirector;
+director.backgroundColor="white";
+_demoRefCount++;
+var dinoAni = new SpriteAnimation({fileName:"assets/ani/dino/d",fileType:"jpg" ,scale:0.7, width:657,height:429,frameCount:71,oneDelay:0.005, repeat:false  });
+dinoAni.position.x=180;
+dinoAni.position.y=130;
+dinoAni.runCount = 0;
+cocoApp.addChild(dinoAni,"dinoani"+ _demoRefCount );
+var back = cocoApp.addImage('assets/tv.png', 0,0, true);
+var label = cocoApp.addLabel({string:"Click Me",fontName:"Arial",fontSize:26,fontColor:"White" });
+label.position.x=180;
+label.position.y=235;
+back.scale=0.4;
+dinoAni.isAlive = true;
+back.onMouseUp=function(evt){
+    if(dinoAni.isAlive){
+        dinoAni.position.x-=5;
+        dinoAni.play();
+        dinoAni.runCount++;
+        label.string = "Click " + dinoAni.runCount;
+    }
+}
+back.addSchedule({method:function(){
+    dinoAni.speed = 2;
+    dinoAni.position.x+=dinoAni.speed;
+    if(dinoAni.position.x > 450){
+        label.string = "Dino Die";
+        dinoAni.isAlive = false;
+        back.unscheduleAllSelectors();
+    }
+},target:back,interval:0.05,paused:false});
+</pre>
+</div>
+
+<h3>라이브러리 설정법</h3>
+<div>
+<pre class="file">
+나의 홈페이지에 적용하고 잡다.
+</pre>
+<pre class="code">
+&lt;script src="http://psmon.x-y.net/pscoco/lib/cocos2d-beta2.js"&gt;&lt;/script&gt;
+&lt;script src="http://psmon.x-y.net/pscoco/lib/pscoco.js"&gt;&lt;/script&gt;
+
+step.1
+위 두 라인을 head 태그안에만 넣어줍니다.(가급적 위 두파일은 복사하여 사용합니다.)
+
+step.2
+&lt;div id="psmon-demo" style="width: 600px; height: 480px;float: left;"&gt;&lt;/div&gt;
+위 태그를 Body 안에 넣어줍니다. Canvs를 사용할 레이아웃 입니다.
+
+step.3
+&lt;script type="text/javascript"&gt;
+var cocoApp=null;
+cocoApp= new Application('psmon-demo',"gray");
+cocoApp.run();
+&lt;/script&gt;
+
+위 코드를 실행만 하면... 여기에 있는 모든 샘플을 동일하게 수행할수가 있습니다.
+</pre>
+
+<pre class="file">
+ 더 디테일한 예저는, demo1.js 를 참조하시면 되겠으며!!  cocos2d-beta2.js 는 코어 모듈이며  http://cocos2d-javascript.org/ 에 게시된 라이센스를 따르며
+Core에서 제어를 쉽게하게끔 기능개선한 pscocos.js 모듈은 마음것 사용및 수정가능 합니다.
+</pre>
+</div>
+
+
+<div id="fb-root"></div><script src="http://connect.facebook.net/en_US/all.js#appId=132764313565868&amp;xfbml=1"></script><fb:comments href="http://psmon.x-y.net/pscoco/sample.html" num_posts="3" width="500"></fb:comments>
+
+</body>
+
+</html>
